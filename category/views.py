@@ -14,4 +14,4 @@ class CategoryView(View):
         }
         return JsonResponse(response_data)
     
-# Create functions to get work cloud here
+# Create functions to get word cloud here
