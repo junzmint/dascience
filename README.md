@@ -4,3 +4,7 @@
 ```docker-compose down```
 # API documentation
 ```http://localhost:8000/category/?category=```
+
+# Viết tiếp các get cho các category khác
+
+mỗi category mn tạo 1 file (ten category).py (vd: Pet.py) rồi đọc file processed của nó, làm tương tự như trong category Pet,

@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views import View
+import pandas as pd
+import numpy as np
 import random
-
+from .Pet import getInsightPet
 # Create your views here.
 class CategoryView(View):
     def get(self, request):
         category = request.GET.get('category', 'unknown')
-        random_number = random.randint(1, 10)
+        data = {}
+        if (category == "pet"):
+            data = getInsightPet()
+        
         response_data = {
-            "category": category,
-            "random_number": random_number
+            "data": data,
         }
         return JsonResponse(response_data)
     
