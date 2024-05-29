@@ -3,7 +3,8 @@
 # Turn off all the docker components
 ```docker-compose down```
 # API documentation
-```http://localhost:8000/category/?category=```
+```http://localhost:8000/category/?category=abc&type=positive```
+type = negative or positive
 
 # Viết tiếp các get cho các category khác
 
