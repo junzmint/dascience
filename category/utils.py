@@ -31,18 +31,17 @@ def get_keyword_dict(df):
   stopwords = buildListFromFile("category/@fake-db/stopwords.txt")
   dict_of_word ={}
   for line in df:
-    if (isinstance(line, str)):
-      words_and_tags = ViPosTagger.postagging(ViTokenizer.tokenize(line))
-      for word, tag in zip(words_and_tags[0], words_and_tags[1]):
-        word = normalize_comment(word)
-        if word not in stopwords:
-          if word in dict_of_word:
-            dict_of_word[word][0] = dict_of_word[word][0] + 1
-          else:
-            dict_of_word[word] = []
-            dict_of_word[word].append(1)
-            dict_of_word[word].append(tag)
-  
+    words_and_tags = eval(line)
+    for word, tag in zip(words_and_tags[0], words_and_tags[1]):
+      word = normalize_comment(word)
+      if word not in stopwords:
+        if word in dict_of_word:
+          dict_of_word[word][0] = dict_of_word[word][0] + 1
+        else:
+          dict_of_word[word] = []
+          dict_of_word[word].append(1)
+          dict_of_word[word].append(tag)
+
   # word_list = []
   # for i, (word, frequency) in enumerate(dict_of_word.items()):
   #   obj = {}

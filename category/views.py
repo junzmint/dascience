@@ -9,13 +9,13 @@ from .Pet import getInsightPet
 class CategoryView(View):
     def get(self, request):
         category = request.GET.get('category', 'unknown')
+        cmt_type = request.GET.get('type', 'negative')
+
         data = {}
         if (category == "pet"):
-            data = getInsightPet()
+            data = getInsightPet(cmt_type)
         
-        response_data = {
-            "data": data,
-        }
+        response_data = data
         return JsonResponse(response_data)
     
 # Create functions to get word cloud here
