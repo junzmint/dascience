@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+
+from multiprocessing import Pool
 from .utils import get_keyword_dict
 
 def get_keyword_list_for(dict_of_word, type_of_word):
@@ -8,46 +10,41 @@ def get_keyword_list_for(dict_of_word, type_of_word):
     return keyword_list_N[:30]
 
 def readFile():
-    df = pd.read_csv("category/@fake-db/Chăm-Sóc-Thú-Cưng-processed.csv")
-    return df
+    return pd.read_csv("category/@fake-db/Chăm-Sóc-Thú-Cưng-processed.csv")
+
+def process_category(category, df):
+    category_df = df[df['product_category'] == category]
+    dict_of_word = get_keyword_dict(category_df['normalize_comment_token'])
+    list_N = get_keyword_list_for(dict_of_word, "N")
+    list_A = get_keyword_list_for(dict_of_word, "A")
+        
+    return {
+        f"{category}_noun": list_N,
+        f"{category}_adj": list_A
+    }
 
 def getInsightInComment(df):
-    food_df = df[df['product_category'] == "food"]
-    fashion_df= df[df['product_category'] == "fashion"]
-    accessories_df= df[df['product_category'] == "accessories"]
-    drug_df= df[df['product_category'] == "drugs"]
-    
-    food_dict_of_word = get_keyword_dict(food_df['normalize_comment_token'])
-    food_list_N = get_keyword_list_for(food_dict_of_word, "N")
-    food_list_A = get_keyword_list_for(food_dict_of_word, "A")
+    product_categories = [
+        "food",
+        "fashion",
+        "accessories",
+        "drugs",
+    ]
+        
+    with Pool() as pool:
+        results = pool.starmap(process_category, [(category, df) for category in product_categories])
 
-    fashion_dict_of_word = get_keyword_dict(fashion_df['normalize_comment_token'])
-    fashion_list_N = get_keyword_list_for(fashion_dict_of_word, "N")
-    fashion_list_A = get_keyword_list_for(fashion_dict_of_word, "A")
+    insight_dict = {}
+    for result in results:
+        insight_dict.update(result)
 
-    accessories_dict_of_word = get_keyword_dict(accessories_df['normalize_comment_token'])
-    accessories_list_N = get_keyword_list_for(accessories_dict_of_word, "N")
-    accessories_list_A = get_keyword_list_for(accessories_dict_of_word, "A")
-
-    drug_dict_of_word = get_keyword_dict(drug_df['normalize_comment_token'])
-    drug_list_N = get_keyword_list_for(drug_dict_of_word, "N")
-    drug_list_A = get_keyword_list_for(drug_dict_of_word, "A")
-    
-    return {
-        "food_noun": food_list_N, 
-        "food_adj": food_list_A,
-        "fashion_noun": fashion_list_N,
-        "fashion_adj": fashion_list_A,
-        "accessories_noun": accessories_list_N,
-        "accessories_adj": accessories_list_A,
-        "drug_noun": drug_list_N,
-        "drug_adj": drug_list_A,
-        }
+    return insight_dict
 
 def getInsightPet(type):
     df = readFile()
     df.dropna(subset=['normalize_comment'], inplace=True)
-    df.reset_index(drop=True, inplace=True) 
+    df.reset_index(drop=True, inplace=True)
+    
     if type == "negative":
         negative_df = df[df['rating_sentiment'] == 0]
         keyword_list = getInsightInComment(negative_df)
