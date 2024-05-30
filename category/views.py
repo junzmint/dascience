@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import random
 from .Pet import getInsightPet
+from .Health import getInsightHealth
 # Create your views here.
 class CategoryView(View):
     def get(self, request):
@@ -14,6 +15,8 @@ class CategoryView(View):
         data = {}
         if (category == "pet"):
             data = getInsightPet(cmt_type)
+        elif (category == "health"):
+            data = getInsightHealth(cmt_type)
         
         response_data = data
         return JsonResponse(response_data)
