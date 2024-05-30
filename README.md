@@ -4,8 +4,8 @@
 ```docker-compose down```
 # API documentation
 ```http://localhost:8000/category/?category=[]&type=[]]```
-category in [pet, health, man_fashion]
-type in [negative, positive]
+- category in [pet, health, man_fashion]
+- type in [negative, positive]
 
 # Each category have smaller categories
 
@@ -28,19 +28,19 @@ Sức-khỏe:
       accessories
 
 Thời-trang-nam:
-      t-shirt       
-      shirt         
+      t-shirt
+      shirt       
       sport          
-      polo           
+      polo          
       jeans          
       shorts         
       jacket         
-      belt           
+      belt         
       pants           
-      underwear       
-      hoodie          
-      sock            
-      footwear         
-      accessories      
-      hat              
+      underwear     
+      hoodie       
+      sock          
+      footwear       
+      accessories
+      hat      
  
