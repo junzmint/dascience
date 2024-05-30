@@ -3,29 +3,31 @@
 # Turn off all the docker components
 ```docker-compose down```
 # API documentation
-```http://localhost:8000/category/?category=abc&type=positive```
-type = negative or positive
+```http://localhost:8000/category/?category=[]&type=[]]```
+category in [pet, health, man_fashion]
+type in [negative, positive]
 
-# Viết tiếp các get cho các category khác
+# Each category have smaller categories
 
-mỗi category mn tạo 1 file (ten category).py (vd: Pet.py) rồi đọc file processed của nó, làm tương tự như trong category Pet,
+Chăm-Sóc-Thú-Cưng:
+      food
+      accessories
+      drug
+      fashion
 
-trong các function getInsightInNegativeComment, getInsightInPositiveComment, ta cần lấy keyword từ mỗi product_category nên từ 1 dataframe category lớn, ta phải tách thành các dataframe của các product_category
-vd : trong pet có 4 product_category là food, accessories, drug, fashion nếu ms cần 4 dataframe con.
-các product_category trg các category:
 Sức-khỏe:
-      "q-tip" 
-      "heathcare"
-      "condoms"
-      "mask"
-      "self-hygiene"
-      "massage"
-      "contact-lens"
-      "vitamins"
-      "drugs"
-      "accessories"
+      q-tip
+      heathcare
+      condoms
+      mask
+      self-hygiene
+      massage
+      contact-lens
+      vitamins
+      drugs
+      accessories
 
-thời-trang-nam:
+Thời-trang-nam:
       t-shirt       
       shirt         
       sport          
