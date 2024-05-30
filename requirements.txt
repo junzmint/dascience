@@ -3,3 +3,4 @@ numpy
 pandas
 django-pandas
 pyvi
+django-cors-headers
