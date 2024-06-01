@@ -8,6 +8,7 @@ from .Pet import getInsightPet
 from .Health import getInsightHealth
 from .ManFashion import getInsightManFashion
 from .WomanFashion import getInsightWomanFashion
+from .Bag import getInsightBag
 
 # Create your views here.
 class CategoryView(View):
@@ -24,7 +25,9 @@ class CategoryView(View):
             data = getInsightManFashion(cmt_type)
         elif (category == "woman_fashion"):
             data = getInsightWomanFashion(cmt_type)
-        
+        elif category == "bag":
+            data = getInsightBag(cmt_type)
+
         response_data = data
         return JsonResponse(response_data)
     

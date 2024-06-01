@@ -166,4 +166,5 @@ cython_debug/
 /category/@fake-db/Sức-Khỏe-processed.csv
 /category/@fake-db/Thời-Trang-Nam-processed.csv
 /category/@fake-db/Thời-Trang-Nữ-processed.csv
+/category/@fake-db/Balo-Túi-Ví-Nam-processed.csv
 db.sqlite3
